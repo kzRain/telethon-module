@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "user_id": 5556521424,
-  "text": "This message from Postman"
+  "text": "This message from Docker"
 }
 
 ### Check contact by number
@@ -38,4 +38,4 @@ Content-Type: application/json
 }
 
 ### Get settings
-GET http://127.0.0.1:5000/settings
+GET http://192.168.0.120:5000/settings

@@ -1,0 +1,15 @@
+version: "3"
+services:
+  telethon-module:
+    restart: always
+    image: telethon-module
+    environment:
+      - API_ID=123
+      - API_HASH='123'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
