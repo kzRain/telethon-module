@@ -5,8 +5,8 @@ import hypercorn.asyncio
 from quart import Quart, request
 from quart_schema import QuartSchema, validate_request
 
-api_id = os.getenv('API_ID', 17735788)
-api_hash = os.getenv('API_HASH', '285b5aee89a674d518dcc14f295c58f7')
+api_id = os.getenv('API_ID', 1234567)
+api_hash = os.getenv('API_HASH', 'qwerty123456')
 client = TelegramClient('telegram', api_id, api_hash)
 
 app = Quart(__name__)
