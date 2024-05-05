@@ -16,13 +16,17 @@ QuartSchema(app)
 async def startup():
     await client.connect()
 
-
 @app.after_serving
 async def cleanup():
     await client.disconnect()
 
 @app.route('/settings')
 async def settings():
+    return {'api_id': api_id, 'api_hash': api_hash}
+
+@app.route('/start')
+async def start():
+    client.send_message('me', 'Hello, myself!')
     return {'api_id': api_id, 'api_hash': api_hash}
 
 @app.post('/check_contact')

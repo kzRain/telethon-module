@@ -2,10 +2,7 @@
 POST http://127.0.0.1:5000/send_message
 Content-Type: application/json
 
-{
-  "user_id": 5556521424,
-  "text": "This message from Docker"
-}
+{"user_id": 5556521424, "text": "This message from Docker"}
 
 ### Check contact by number
 POST http://127.0.0.1:5000/check_contact
