@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/test-telethon.iml" filepath="$PROJECT_DIR$/test-telethon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/telethon-module.iml" filepath="$PROJECT_DIR$/telethon-module.iml" />
     </modules>
   </component>
 </project>
