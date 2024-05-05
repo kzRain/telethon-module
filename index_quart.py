@@ -26,7 +26,7 @@ async def settings():
 
 @app.route('/start')
 async def start():
-    client.send_message('me', 'Hello, myself!')
+    await client.send_message('me', 'Hello, myself!')
     return {'api_id': api_id, 'api_hash': api_hash}
 
 @app.post('/check_contact')
