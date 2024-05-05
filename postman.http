@@ -1,0 +1,41 @@
+### Send POST request with json body
+POST http://127.0.0.1:5000/send_message
+Content-Type: application/json
+
+{
+  "user_id": 5556521424,
+  "text": "This message from Postman"
+}
+
+### Check contact by number
+POST http://127.0.0.1:5000/check_contact
+Content-Type: application/json
+
+{
+  "phone_number": "+77785080094"
+}
+### Check contact by username
+POST http://127.0.0.1:5000/check_contact
+Content-Type: application/json
+
+{
+  "username": "ruslanbeiganov"
+}
+### Check contact by user_id
+POST http://127.0.0.1:5000/check_contact
+Content-Type: application/json
+
+{
+  "user_id": 5556521424
+}
+
+### Check contact by wrong number
+POST http://127.0.0.1:5000/check_contact
+Content-Type: application/json
+
+{
+  "phone_number": "77757937152"
+}
+
+### Get settings
+GET http://127.0.0.1:5000/settings

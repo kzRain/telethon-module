@@ -1,11 +1,12 @@
 from telethon import TelegramClient, types, functions
-from dataclasses import dataclass
+import os
+from telethon.tl.functions.messages import SendMessageRequest
 import hypercorn.asyncio
 from quart import Quart, request
 from quart_schema import QuartSchema, validate_request
 
-api_id = 17735788
-api_hash = '285b5aee89a674d518dcc14f295c58f7'
+api_id = os.getenv('API_ID', 17735788)
+api_hash = os.getenv('API_HASH', '285b5aee89a674d518dcc14f295c58f7')
 client = TelegramClient('telegram', api_id, api_hash)
 
 app = Quart(__name__)
@@ -20,48 +21,49 @@ async def startup():
 async def cleanup():
     await client.disconnect()
 
-@app.route('/')
-async def hello_world():
-    await client.send_message('me', 'Hello World')
-    return 'Message Sent!'
+@app.route('/settings')
+async def settings():
+    return {'api_id': api_id, 'api_hash': api_hash}
+
+@app.post('/check_contact')
+async def check_contact():
+    data = await request.get_json()
+    try:
+        if 'phone_number' in data:
+            contact = await client.get_input_entity(data['phone_number'])
+            print(contact)
+            return {"user_id":contact.user_id}, 200
+        elif 'username' in data:
+            contact = await client.get_input_entity(data['username'])
+            print(contact)
+            return {"user_id":contact.user_id}, 200
+        elif 'user_id' in data:
+            contact = await client.get_input_entity(data['user_id'])
+            print(contact)
+            return {"user_id":contact.user_id}, 200
+        else:
+            return 'Missing parameters', 400
+    except Exception as e:
+        return f"Error finding contact: {e}", 500
 
 @app.post('/send_message')
 async def send_message():
 
     data = await request.get_json()
-
     # Проверяем наличие необходимых данных в запросе
-    if 'phone_number' not in data or 'text' not in data:
+    if 'user_id' not in data or 'text' not in data:
         return 'Missing parameters', 400
-
-    # Пытаемся отправить сообщение
     try:
-        # Получаем объект сущности для контакта
-        contact_entity = await client.get_entity(data['phone_number'])
-    except ValueError:
-        # Если контакт отсутствует, добавляем его
-        try:
-            contact = types.InputPhoneContact(
-                client_id=0,
-                phone=data.get['phone_number'],
-                first_name='auto',
-                last_name='user1'
-            )
-            result = await client(functions.contacts.ImportContactsRequest(
-                contacts=[contact]
-            ))
-            print(result)
-            # Повторно получаем объект сущности для контакта
-            contact_entity = await client.get_entity(data['phone_number'])
-        except Exception as e:
-            return f"Error adding contact: {e}", 500
-
-    # Отправляем сообщение
-    try:
-        await client.send_message(contact_entity, data['text'])
-        return 'Message sent successfully', 200
+        contact = await client.get_input_entity(data['user_id'])
+        print(contact)
     except Exception as e:
-        return f"Error sending message: {e}", 500
+        return f"Error finding contact: {e}", 500
+    try:
+        result = await client(SendMessageRequest(contact, data['text']))
+        print(result)
+        return {"user_id":contact.user_id, "message_id": result.id}, 200
+    except Exception as e:
+        return f"Error finding contact: {e}", 500
 
 async def main():
     await hypercorn.asyncio.serve(app, hypercorn.Config())
