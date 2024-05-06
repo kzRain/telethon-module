@@ -29,7 +29,7 @@ async def start():
     await client.send_message('me', 'Hello, myself!')
     return {'api_id': api_id, 'api_hash': api_hash}
 
-@app.post('/check_contact')
+@app.route('/check_contact', methods=['POST'])
 async def check_contact():
     data = await request.get_json()
     try:
@@ -50,7 +50,7 @@ async def check_contact():
     except Exception as e:
         return f"Error finding contact: {e}", 500
 
-@app.post('/send_message')
+@app.route('/send_message', methods=['POST'])
 async def send_message():
 
     data = await request.get_json()
