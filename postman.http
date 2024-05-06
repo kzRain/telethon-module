@@ -16,7 +16,7 @@ POST http://127.0.0.1:5000/check_contact
 Content-Type: application/json
 
 {
-  "username": "ruslanbeiganov"
+  "username": "ruslanbeyganov"
 }
 ### Check contact by user_id
 POST http://127.0.0.1:5000/check_contact
@@ -36,3 +36,6 @@ Content-Type: application/json
 
 ### Get settings
 GET http://192.168.0.120:5000/settings
+
+### Get settings
+GET http://192.168.0.120:5000/start
