@@ -3,14 +3,14 @@ import os
 from telethon.tl.functions.messages import SendMessageRequest
 import hypercorn.asyncio
 from quart import Quart, request
-from quart_schema import QuartSchema, validate_request
+# from quart_schema import QuartSchema, validate_request
 
 api_id = os.getenv('API_ID', 1234567)
 api_hash = os.getenv('API_HASH', 'qwerty123456')
 client = TelegramClient('telegram', api_id, api_hash)
 
 app = Quart(__name__)
-QuartSchema(app)
+# QuartSchema(app)
 
 @app.before_serving
 async def startup():
