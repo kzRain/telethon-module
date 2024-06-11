@@ -2,7 +2,8 @@
 POST http://127.0.0.1:5000/send_message
 Content-Type: application/json
 
-{"user_id": 5556521424, "text": "Поздравляем! Вы зачислены на курс **\"{course_name}\"** автора **{instructor_name}** 🥳n\nДоступ к курсу закроется *{expiry_date}*n\n❗️Чтобы начать обучение, пройдите по ссылке ниже. 👇\nt.me/uz_courstore_student_bot.", "parse_type": "TEXT"}
+{"user_id": 5556521424, "text": "Поздравляем! Вы зачислены на курс **\"{course_name}\"** автора **{instructor_name}** 🥳n\nДоступ к курсу закроется *{expiry_date}*n\n❗️Чтобы начать обучение, пройдите по ссылке ниже. 👇\nt.me/uz_courstore_student_bot."}
+
 
 ### Check contact by number
 POST http://127.0.0.1:5000/check_contact
@@ -50,16 +51,23 @@ GET http://192.168.0.120:5000/start
 POST http://web.courstore.uz:5000/check_contact
 Content-Type: application/json
 
-{"user_id":1360043549}
+{"user_id":103766656}
 
 ###
 POST http://web.courstore.uz:5000/check_contact
 Content-Type: application/json
 
-{ "username": "@SpamBot"}
+{ "username": "@Oybek_ibodillaev"}
 
 ### Send POST request with json body
 POST http://web.courstore.uz:5000/send_message
 Content-Type: application/json
 
-{"user_id":1360043549,"text":"Check me"}
+//{"user_id":109074858,"text":"Tabriklaymiz! Siz muallif tomonidan \"Shaxsiy Moliya va Investitsiya orqali Pulni Ko’paytirish 2.0 Platinum\" kursiga yozildingiz Tamilla Kurbanova 🥳Kursga kirish *10 декабря 2024 г. (6 oylar)* kuni yopiladi ❗️Mashgulotni boshlash uchun quyidagi havolaga oting. 👇t.me/uz_courstore_student_bot."}
+{
+  "user_id": 103766656,
+  "username": "@ruslanbeyganov",
+  "text": "Tabriklaymiz! Siz muallif *tomonidan* \"Shaxsiy Moliya va Investitsiya orqali Pulni Ko’paytirish 2.0 Gold N\" kursiga yozildingiz Tamilla Kurbanova 🥳\n\nKursga kirish 10 сентября 2024 г. (3 oylar) kuni yopiladi\n\n❗️Mashg`ulotni boshlash uchun quyidagi havolaga o`ting. 👇\nt.me/uz_courstore_student_bot."
+}
+### Get settings
+GET http://web.courstore.uz:5000/start

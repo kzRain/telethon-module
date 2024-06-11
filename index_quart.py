@@ -82,22 +82,30 @@ async def send_message():
     parse_type = 'MARKDOWN'
     if 'parse_type' in data:
         parse_type = data['parse_type']
-    try:
-        contact = await client.get_input_entity(data['user_id'])
-        print(contact)
-    except Exception as e:
-        return f"Error finding contact: {e}", 500
-    try:
-        if parse_type == 'TEXT':
-            result = await client(SendMessageRequest(contact, data['text']))
-        elif parse_type == 'HTML':
-            result = await client.send_message(contact, data['text'], parse_mode='htm')
-        else:
-            result = await client.send_message(contact, data['text'])
-        print(result)
-        return {"user_id": contact.user_id, "message_id": result.id}, 200
-    except Exception as e:
-        return f"Error finding contact: {e}", 500
+    if 'username' in data:
+        try:
+            result = await client(SendMessageRequest(data['username'], data['text']))
+            print(result)
+            return {"user_id": data['user_id'], "message_id": result.id}, 200
+        except Exception as e:
+            return f"Error send_message: {e}", 500
+    else:
+        try:
+            contact = await client.get_input_entity(data['user_id'])
+            print(contact)
+        except Exception as e:
+            return f"Error get_input_entity: {e}", 500
+        try:
+            if parse_type == 'TEXT':
+                result = await client(SendMessageRequest(contact, data['text']))
+            elif parse_type == 'HTML':
+                result = await client.send_message(contact, data['text'], parse_mode='htm')
+            else:
+                result = await client.send_message(contact, data['text'], parse_mode='markdown')
+            print(result)
+            return {"user_id": contact.user_id, "message_id": result.id}, 200
+        except Exception as e:
+            return f"Error send_message: {e}", 500
 
 
 async def main():
